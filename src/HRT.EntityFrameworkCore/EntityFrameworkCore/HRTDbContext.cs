@@ -15,6 +15,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using HRT.Candidates;
 
 namespace HRT.EntityFrameworkCore;
 
@@ -29,6 +30,7 @@ public class HRTDbContext :
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
     public DbSet<Book> Books { get; set; }
+    public DbSet<Candidate> Candidates { get; set; }
 
     #region Entities from the modules
 
@@ -80,7 +82,7 @@ public class HRTDbContext :
         builder.ConfigureOpenIddict();
         builder.ConfigureTenantManagement();
         builder.ConfigureBlobStoring();
-        
+
         builder.Entity<Book>(b =>
         {
             b.ToTable(HRTConsts.DbTablePrefix + "Books",
@@ -88,7 +90,18 @@ public class HRTDbContext :
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
         });
-        
+
+
+        builder.Entity<Candidate>(b =>
+        {
+            b.ToTable(HRTConsts.DbTablePrefix + "Candidates", HRTConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.FullName).IsRequired().HasMaxLength(256);
+            b.Property(x => x.DateOfBirth).IsRequired();
+            b.Property(x => x.Experience).IsRequired();
+            b.Property(x => x.Department).IsRequired();
+        });
+
         /* Configure your own tables/entities inside here */
 
         //builder.Entity<YourEntity>(b =>
