@@ -1,0 +1,13 @@
+﻿{
+  "applications": {
+    "HRT.Web": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44382",
+      "path": "../../../src/HRT.Web/HRT.Web.csproj",
+      "kubernetesService": ".*-web$",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}

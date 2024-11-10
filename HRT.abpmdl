@@ -1,0 +1,93 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "3.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "8.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "8.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "8.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "8.3.3",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "HRT.Application": {
+      "path": "src/HRT.Application/HRT.Application.abppkg",
+      "folder": "src"
+    },
+    "HRT.Application.Tests": {
+      "path": "test/HRT.Application.Tests/HRT.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "HRT.Domain.Shared": {
+      "path": "src/HRT.Domain.Shared/HRT.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "HRT.Application.Contracts": {
+      "path": "src/HRT.Application.Contracts/HRT.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "HRT.HttpApi": {
+      "path": "src/HRT.HttpApi/HRT.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "HRT.HttpApi.Client": {
+      "path": "src/HRT.HttpApi.Client/HRT.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "HRT.Web": {
+      "path": "src/HRT.Web/HRT.Web.abppkg",
+      "folder": "src"
+    },
+    "HRT.Web.Tests": {
+      "path": "test/HRT.Web.Tests/HRT.Web.Tests.abppkg",
+      "folder": "test"
+    },
+    "HRT.EntityFrameworkCore.Tests": {
+      "path": "test/HRT.EntityFrameworkCore.Tests/HRT.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "HRT.EntityFrameworkCore": {
+      "path": "src/HRT.EntityFrameworkCore/HRT.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "HRT.TestBase": {
+      "path": "test/HRT.TestBase/HRT.TestBase.abppkg",
+      "folder": "test"
+    },
+    "HRT.Domain.Tests": {
+      "path": "test/HRT.Domain.Tests/HRT.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "HRT.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/HRT.HttpApi.Client.ConsoleTestApp/HRT.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "HRT.DbMigrator": {
+      "path": "src/HRT.DbMigrator/HRT.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "HRT.Domain": {
+      "path": "src/HRT.Domain/HRT.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
