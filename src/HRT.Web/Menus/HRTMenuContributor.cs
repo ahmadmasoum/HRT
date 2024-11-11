@@ -35,6 +35,14 @@ public class HRTMenuContributor : IMenuContributor
             )
         );
 
+        context.Menu.AddItem(
+             new ApplicationMenuItem(
+            "Apply",
+            l["Menu:Apply"],
+            icon: "fa fa-book",
+            url: "/Candidates/Create")
+             );
+
 
         //Administration
         var administration = context.Menu.GetAdministration();
@@ -42,7 +50,7 @@ public class HRTMenuContributor : IMenuContributor
 
         //Administration->Identity
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
-    
+
         if (MultiTenancyConsts.IsEnabled)
         {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
@@ -51,12 +59,12 @@ public class HRTMenuContributor : IMenuContributor
         {
             administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
         }
-        
+
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
 
         //Administration->Settings
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
-    
+
         context.Menu.AddItem(
             new ApplicationMenuItem(
                 "BooksStore",
@@ -67,10 +75,10 @@ public class HRTMenuContributor : IMenuContributor
                 "BooksStore.Books",
                 l["Menu:Books"],
                 url: "/Books"
-                ).RequirePermissions(HRTPermissions.Books.Default) 
+                ).RequirePermissions(HRTPermissions.Books.Default)
             )
         );
-        
+
         return Task.CompletedTask;
     }
 }

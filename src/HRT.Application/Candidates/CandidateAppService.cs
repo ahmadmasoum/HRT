@@ -1,8 +1,11 @@
-﻿using System;
+﻿using HRT.BlobStorage;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.ObjectMapping;
 
@@ -12,9 +15,15 @@ namespace HRT.Candidates
     {
         private readonly ICandidateRepository _candidateRepository;
 
-        public CandidateAppService(ICandidateRepository candidateRepository)
+        // TODO This should be replaced with domain service
+        private readonly IFileAppService _fileAppService;
+
+        public CandidateAppService(
+            ICandidateRepository candidateRepository,
+            IFileAppService fileAppService)
         {
             _candidateRepository = candidateRepository;
+            _fileAppService = fileAppService;
         }
 
         public async Task<PagedResultDto<CandidateDto>> GetListAsync(GetCandidatesInput input)
@@ -35,9 +44,30 @@ namespace HRT.Candidates
             return ObjectMapper.Map<Candidate, CandidateDto>(result);
 
         }
-        public Task<CandidateDto> CreateAsync(CreateUpdateCandidateDto input)
+        public async Task<CandidateDto> CreateAsync(CreateUpdateCandidateDto input)
         {
-            throw new NotImplementedException();
+            // TODO Add Specifications for server side validation age/name
+            Candidate entity = ObjectMapper.Map<CreateUpdateCandidateDto, Candidate>(input);
+
+            entity = await _candidateRepository.InsertAsync(entity, autoSave: true);
+
+            try
+            {
+                SaveBlobInputDto inputDto = new SaveBlobInputDto()
+                {
+                    Content = input.Resume,
+                    Id = entity.Id
+                };
+
+                await _fileAppService.SaveBlobAsync(inputDto);
+
+                return ObjectMapper.Map<Candidate, CandidateDto>(entity);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, message: ex.Message);
+                throw new BusinessException("HRT:ExceptionWhileSavingResume");
+            }
         }
 
         public Task<CandidateDto> UpdateAsync(Guid id, CreateUpdateCandidateDto input)

@@ -13,7 +13,7 @@ public class HRTApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateBookDto, Book>();
 
         CreateMap<CreateUpdateCandidateDto, Candidate>().IgnoreFullAuditedObjectProperties().Ignore(x => x.ExtraProperties).Ignore(x => x.ConcurrencyStamp).Ignore(x => x.Id);
-        CreateMap<CreateUpdateCandidateDto, Candidate>().IgnoreFullAuditedObjectProperties().Ignore(x => x.ExtraProperties).Ignore(x => x.ConcurrencyStamp).Ignore(x => x.Id);
+        //CreateMap<CreateUpdateCandidateDto, Candidate>().IgnoreFullAuditedObjectProperties().Ignore(x => x.ExtraProperties).Ignore(x => x.ConcurrencyStamp).Ignore(x => x.Id);
         CreateMap<Candidate, CandidateDto>();
 
         /* You can configure your AutoMapper mapping configuration here.

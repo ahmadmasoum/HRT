@@ -14,6 +14,5 @@ namespace HRT.Candidates
         public DateTime DateOfBirth { get; set; }
         public int Experience { get; set; }
         public DepartmentType Department { get; set; }
-        public byte[] Resume { get; set; }
     }
 }

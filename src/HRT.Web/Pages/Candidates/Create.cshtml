@@ -1,0 +1,41 @@
+﻿@page
+@using HRT.Localization
+@using HRT.Permissions
+@using HRT.Web.Pages.Candidates
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@model CreateModel
+@inject IStringLocalizer<HRTResource> L
+@inject IPageLayout PageLayout
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+
+@{
+    PageLayout.Content.Title = L["Candidate"].Value;
+    PageLayout.Content.MenuItemName = "HRT.Candidate";
+}
+
+<abp-card>
+    <abp-card-body>
+        <form asp-page="/Candidates/Create" id="custom-form" method="post" enctype="multipart/form-data">
+            <abp-row>
+                <abp-column size="_6">
+
+                    <abp-input label="@L["FullName"].Value" asp-for="Candidate.FullName" />
+                    <abp-input label="@L["DateOfBirth"].Value" asp-for="Candidate.DateOfBirth" />
+                    <abp-select label="@L["Department"].Value" asp-for="Candidate.Department" />
+
+                </abp-column>
+
+                <abp-column size="_6">
+
+                    <abp-input label="@L["Resume"].Value" asp-for="File"></abp-input>
+
+                </abp-column>
+            </abp-row>
+
+            <abp-button button-type="Primary" type="submit">@L["Save"].Value</abp-button>
+            <a asp-page="./Index" class="btn btn-default me-2"><span>@L["Cancel"]</span></a>
+
+        </form>
+    </abp-card-body>
+</abp-card>
