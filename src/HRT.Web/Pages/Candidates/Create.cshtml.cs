@@ -17,10 +17,10 @@ namespace HRT.Web.Pages.Candidates
         [BindProperty]
         public CreateUpdateCandidateDto Candidate { get; set; }
 
-        public bool Uploaded { get; set; } = false;
-
         [BindProperty]
-        public IFormFile File { get; set; }
+        public UploadFileDto UploadFileDto { get; set; }
+
+        public bool Uploaded { get; set; } = false;
 
         public CreateModel(ICandidateAppService candidateAppService)
         {
@@ -37,9 +37,10 @@ namespace HRT.Web.Pages.Candidates
         {
             using (var memoryStream = new MemoryStream())
             {
-                await File.CopyToAsync(memoryStream);
+                await UploadFileDto.File.CopyToAsync(memoryStream);
 
-                Candidate.Resume = memoryStream.ToArray();
+                Candidate.Resume.Content = memoryStream.ToArray();
+                Candidate.Resume.Name = UploadFileDto.Name;
 
                 await _candidateAppService.CreateAsync(Candidate);
             }
@@ -47,5 +48,12 @@ namespace HRT.Web.Pages.Candidates
             return Page();
         }
 
+
+    }
+
+    public class UploadFileDto
+    {
+        public IFormFile File { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,15 @@ namespace HRT.Candidates
     public class GetCandidatesInput : PagedAndSortedResultRequestDto
     {
         // These are the parameter for admin searching
-        public string FilterText { get; set; }
-
-        public string FullName { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public int Experience { get; set; }
-        public DepartmentType Department { get; set; }
+        [CanBeNull]
+        public string? FilterText { get; set; }
+        [CanBeNull]
+        public string? FullName { get; set; }
+        [CanBeNull]
+        public DateTime? DateOfBirth { get; set; }
+        [CanBeNull]
+        public int? Experience { get; set; }
+        [CanBeNull]
+        public DepartmentType? Department { get; set; }
     }
 }

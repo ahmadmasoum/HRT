@@ -8,10 +8,14 @@
 @inject IStringLocalizer<HRTResource> L
 @inject IPageLayout PageLayout
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
-
 @{
     PageLayout.Content.Title = L["Candidate"].Value;
     PageLayout.Content.MenuItemName = "HRT.Candidate";
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Candidates/create.js" />
 }
 
 <abp-card>
@@ -27,8 +31,9 @@
                 </abp-column>
 
                 <abp-column size="_6">
-
-                    <abp-input label="@L["Resume"].Value" asp-for="File"></abp-input>
+                    <abp-input label="@L["Experience"].Value" asp-for="Candidate.Experience" />
+                    <abp-input asp-for="UploadFileDto.Name" hidden suppress-label="true"></abp-input>
+                    <abp-input label="@L["Resume"].Value" asp-for="UploadFileDto.File"></abp-input>
 
                 </abp-column>
             </abp-row>

@@ -11,6 +11,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace HRT.Candidates
 {
+    //[RemoteService(false)]
     public class CandidateAppService : HRTAppService, ICandidateAppService
     {
         private readonly ICandidateRepository _candidateRepository;
@@ -44,22 +45,35 @@ namespace HRT.Candidates
             return ObjectMapper.Map<Candidate, CandidateDto>(result);
 
         }
+        public async Task<CandidateDto> DownloadCandidateResumeAsync(Guid id)
+        {
+
+            Candidate result = await _candidateRepository.GetAsync(id);
+            return ObjectMapper.Map<Candidate, CandidateDto>(result);
+
+        }
         public async Task<CandidateDto> CreateAsync(CreateUpdateCandidateDto input)
         {
             // TODO Add Specifications for server side validation age/name
-            Candidate entity = ObjectMapper.Map<CreateUpdateCandidateDto, Candidate>(input);
+            //Candidate entity = ObjectMapper.Map<CreateUpdateCandidateDto, Candidate>(input);
+
+            Guid candidateId = GuidGenerator.Create();
+            string candidateResumeName = string.Join("_", candidateId.ToString(), input.Resume.Name);
+
+            Candidate entity = new Candidate(candidateId, input.FullName, input.DateOfBirth, input.Experience, input.Department, candidateResumeName);
 
             entity = await _candidateRepository.InsertAsync(entity, autoSave: true);
 
             try
             {
-                SaveBlobInputDto inputDto = new SaveBlobInputDto()
-                {
-                    Content = input.Resume,
-                    Id = entity.Id
-                };
+                //SaveBlobInputDto inputDto = new SaveBlobInputDto()
+                //{
+                //    Content = input.Resume,
+                //    Id = entity.Id
+                //};
 
-                await _fileAppService.SaveBlobAsync(inputDto);
+                input.Resume.Name = candidateResumeName;
+                await _fileAppService.SaveBlobAsync(input.Resume);
 
                 return ObjectMapper.Map<Candidate, CandidateDto>(entity);
             }

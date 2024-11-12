@@ -3,6 +3,9 @@
 	"name": "my-app",
 	"private": true,
 	"dependencies": {
-    "@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~3.3.3"
+		"@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~3.3.3"
+	},
+	"devDependencies": {
+		"eslint": "^9.14.0"
 	}
 }

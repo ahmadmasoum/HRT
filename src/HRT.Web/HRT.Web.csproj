@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Candidates\create.js" />
     <None Remove="Pages\Candidates\index.js" />
   </ItemGroup>
 

@@ -14,5 +14,22 @@ namespace HRT.Candidates
         public DateTime DateOfBirth { get; set; }
         public int Experience { get; set; }
         public DepartmentType Department { get; set; }
+        public string ResumeName { get; set; }
+
+        public Candidate()
+        {
+
+        }
+
+        public Candidate(Guid id, string fullName, DateTime dateOfBirth, int experience, DepartmentType department, string resumeName)
+        {
+            Id = id;
+            FullName = fullName;
+            DateOfBirth = dateOfBirth;
+            Experience = experience;
+            Department = department;
+            ResumeName = resumeName;
+        }
     }
+
 }

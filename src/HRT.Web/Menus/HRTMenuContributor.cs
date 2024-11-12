@@ -36,12 +36,24 @@ public class HRTMenuContributor : IMenuContributor
         );
 
         context.Menu.AddItem(
+            new ApplicationMenuItem(
+                HRTMenus.Candidate,
+                l["Menu:Candidates"],
+                "/Candidates",
+                icon: "fa fa-home",
+                order: 2
+            ).RequirePermissions(HRTPermissions.Candidates.Default)
+        );
+
+
+        context.Menu.AddItem(
              new ApplicationMenuItem(
             "Apply",
             l["Menu:Apply"],
             icon: "fa fa-book",
             url: "/Candidates/Create")
              );
+
 
 
         //Administration

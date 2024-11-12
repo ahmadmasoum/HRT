@@ -19,16 +19,16 @@ namespace HRT.BlobStorage
 
         public async Task SaveBlobAsync(SaveBlobInputDto input)
         {
-            await _fileContainer.SaveAsync(input.Id.ToString(), input.Content, true);
+            await _fileContainer.SaveAsync(input.Name, input.Content, true);
         }
 
         public async Task<BlobDto> GetBlobAsync(GetBlobRequestDto input)
         {
-            var blob = await _fileContainer.GetAllBytesAsync(input.Id.ToString());
+            var blob = await _fileContainer.GetAllBytesAsync(input.Name);
 
             return new BlobDto
             {
-                Id = input.Id,
+                Name = input.Name,
                 Content = blob
             };
         }

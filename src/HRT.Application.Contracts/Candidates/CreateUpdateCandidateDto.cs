@@ -1,4 +1,5 @@
-﻿using HRT.Books;
+﻿using HRT.BlobStorage;
+using HRT.Books;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,11 @@ namespace HRT.Candidates
 {
     public class CreateUpdateCandidateDto
     {
+        public CreateUpdateCandidateDto()
+        {
+            Resume = new SaveBlobInputDto();
+        }
+
         [Required]
         [StringLength(256)]
         public string FullName { get; set; }
@@ -24,6 +30,6 @@ namespace HRT.Candidates
         [Required]
         public DepartmentType Department { get; set; }
 
-        public byte[] Resume { get; set; }
+        public SaveBlobInputDto Resume { get; set; }
     }
 }

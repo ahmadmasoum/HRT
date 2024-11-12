@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using HRT.Permissions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -23,5 +24,10 @@ public class BookAppService :
         CreatePolicyName = HRTPermissions.Books.Create;
         UpdatePolicyName = HRTPermissions.Books.Edit;
         DeletePolicyName = HRTPermissions.Books.Delete;
+    }
+
+    public override Task<PagedResultDto<BookDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+    {
+        return base.GetListAsync(input);
     }
 }

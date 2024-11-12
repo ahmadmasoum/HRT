@@ -1,12 +1,13 @@
 ﻿$(function () {
     var l = abp.localization.getResource('HRT');
+    var candidateService = window.hRT.controllers.candidates.candidate;
 
     var dataTable = $('#CandidatesTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,
             order: [[1, "asc"]],
-            searching: false,
+            searching: true,
             scrollX: true,
             ajax: abp.libs.datatables.createAjax(hRT.candidates.candidate.getList),
             columnDefs: [
@@ -20,6 +21,18 @@
                                     visible: abp.auth.isGranted('HRT.Candidates.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
+                                    }
+                                },
+                                {
+                                    text: l('DownloadResume'),
+                                    visible: abp.auth.isGranted('HRT.Candidates'),
+                                    action: function (data) {
+                                        var downloadWindow = window.open(
+                                            abp.appPath + "api/app/candidates/download-candidate-resume/" + data.record.resumeName,
+                                            "_blank"
+                                        );
+                                        downloadWindow.focus();
+
                                     }
                                 },
                                 {
@@ -41,43 +54,34 @@
                     }
                 },
                 {
-                    title: l('Name'),
-                    data: "name"
+                    title: l('FullName'),
+                    data: "fullName"
                 },
                 {
-                    title: l('Type'),
-                    data: "type",
+                    title: l('Department'),
+                    data: "department",
                     render: function (data) {
-                        return l('Enum:CandidateType.' + data);
+                        return l('Enum:DepartmentType.' + data);
                     }
                 },
                 {
-                    title: l('PublishDate'),
-                    data: "publishDate",
+                    title: l('DateOfBirth'),
+                    data: "dateOfBirth",
                     dataFormat: "datetime"
                 },
                 {
-                    title: l('Price'),
-                    data: "price"
+                    title: l('Experience'),
+                    data: "experience"
                 },
                 {
-                    title: l('CreationTime'), data: "creationTime",
+                    title: l('AppliedOn'), data: "creationTime",
                     dataFormat: "datetime"
                 }
             ]
         })
     );
 
-    createModal.onResult(function () {
-        dataTable.ajax.reload();
-    });
-
     editModal.onResult(function () {
         dataTable.ajax.reload();
-    });
-
-    $('#NewCandidateButton').click(function (e) {
-        e.preventDefault();
-        createModal.open();
     });
 });

@@ -13,6 +13,6 @@ namespace HRT.BlobStorage
         public byte[] Content { get; set; }
 
         [Required]
-        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

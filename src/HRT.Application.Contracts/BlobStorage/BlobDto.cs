@@ -10,6 +10,6 @@ namespace HRT.BlobStorage
     public class BlobDto
     {
         public byte[] Content { get; set; }
-        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }
