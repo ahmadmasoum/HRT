@@ -57,39 +57,27 @@ public class HRTMenuContributor : IMenuContributor
 
 
         //Administration
-        var administration = context.Menu.GetAdministration();
-        administration.Order = 5;
+        var administration = context.Menu.TryRemoveMenuItem(DefaultMenuNames.Application.Main.Administration);
 
-        //Administration->Identity
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
+        //var administration = context.Menu.GetAdministration();
+        //administration.Order = 5;
 
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
-        }
-        else
-        {
-            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
-        }
+        ////Administration->Identity
+        //administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
 
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+        //if (MultiTenancyConsts.IsEnabled)
+        //{
+        //    administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
+        //}
+        //else
+        //{
+        //    administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+        //}
 
-        //Administration->Settings
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
+        //administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
 
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                "BooksStore",
-                l["Menu:HRT"],
-                icon: "fa fa-book"
-            ).AddItem(
-            new ApplicationMenuItem(
-                "BooksStore.Books",
-                l["Menu:Books"],
-                url: "/Books"
-                ).RequirePermissions(HRTPermissions.Books.Default)
-            )
-        );
+        ////Administration->Settings
+        //administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
 
         return Task.CompletedTask;
     }

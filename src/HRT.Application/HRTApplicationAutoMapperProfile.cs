@@ -1,5 +1,4 @@
 using AutoMapper;
-using HRT.Books;
 using HRT.Candidates;
 using Volo.Abp.AutoMapper;
 
@@ -9,9 +8,6 @@ public class HRTApplicationAutoMapperProfile : Profile
 {
     public HRTApplicationAutoMapperProfile()
     {
-        CreateMap<Book, BookDto>();
-        CreateMap<CreateUpdateBookDto, Book>();
-
         CreateMap<CreateUpdateCandidateDto, Candidate>().IgnoreFullAuditedObjectProperties().Ignore(x => x.ExtraProperties).Ignore(x => x.ConcurrencyStamp).Ignore(x => x.Id);
         //CreateMap<CreateUpdateCandidateDto, Candidate>().IgnoreFullAuditedObjectProperties().Ignore(x => x.ExtraProperties).Ignore(x => x.ConcurrencyStamp).Ignore(x => x.Id);
         CreateMap<Candidate, CandidateDto>();

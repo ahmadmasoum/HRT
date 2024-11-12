@@ -1,10 +1,10 @@
-﻿using HRT.Books;
-using Xunit;
+﻿//using HRT.Books;
+//using Xunit;
 
-namespace HRT.EntityFrameworkCore.Applications.Books;
+//namespace HRT.EntityFrameworkCore.Applications.Books;
 
-[Collection(HRTTestConsts.CollectionDefinitionName)]
-public class EfCoreBookAppService_Tests : BookAppService_Tests<HRTEntityFrameworkCoreTestModule>
-{
+//[Collection(HRTTestConsts.CollectionDefinitionName)]
+//public class EfCoreBookAppService_Tests : BookAppService_Tests<HRTEntityFrameworkCoreTestModule>
+//{
 
-}
+//}

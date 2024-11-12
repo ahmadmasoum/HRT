@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
-using HRT.Books;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -29,7 +28,6 @@ public class HRTDbContext :
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
-    public DbSet<Book> Books { get; set; }
     public DbSet<Candidate> Candidates { get; set; }
 
     #region Entities from the modules
@@ -82,15 +80,6 @@ public class HRTDbContext :
         builder.ConfigureOpenIddict();
         builder.ConfigureTenantManagement();
         builder.ConfigureBlobStoring();
-
-        builder.Entity<Book>(b =>
-        {
-            b.ToTable(HRTConsts.DbTablePrefix + "Books",
-                HRTConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
-        });
-
 
         builder.Entity<Candidate>(b =>
         {
