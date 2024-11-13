@@ -1,4 +1,6 @@
 ﻿using HRT.BlobStorage;
+using HRT.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,10 @@ using Volo.Abp.ObjectMapping;
 
 namespace HRT.Candidates
 {
+    // TODO Disable RemoteService and move all api's to controller
     //[RemoteService(false)]
+    [Authorize(HRTPermissions.Candidates.Default)]
+
     public class CandidateAppService : HRTAppService, ICandidateAppService
     {
         private readonly ICandidateRepository _candidateRepository;
@@ -30,8 +35,8 @@ namespace HRT.Candidates
         public async Task<PagedResultDto<CandidateDto>> GetListAsync(GetCandidatesInput input)
         {
             // You can override GetCountAsync/GetListAsync in the repository so you could pass the parameters in GetCandidatesInput for service side searching 
-            var totalCount = await _candidateRepository.GetCountAsync();
-            List<Candidate> result = await _candidateRepository.GetListAsync();
+            var totalCount = await _candidateRepository.GetCountAsync(input.FilterText);
+            List<Candidate> result = await _candidateRepository.GetListAsync(input.FilterText, sorting: input.Sorting, maxResultCount: input.MaxResultCount, skipCount: input.SkipCount);
 
             return new PagedResultDto<CandidateDto>
             {
@@ -45,18 +50,11 @@ namespace HRT.Candidates
             return ObjectMapper.Map<Candidate, CandidateDto>(result);
 
         }
-        public async Task<CandidateDto> DownloadCandidateResumeAsync(Guid id)
-        {
 
-            Candidate result = await _candidateRepository.GetAsync(id);
-            return ObjectMapper.Map<Candidate, CandidateDto>(result);
-
-        }
+        [AllowAnonymous]
         public async Task<CandidateDto> CreateAsync(CreateUpdateCandidateDto input)
         {
             // TODO Add Specifications for server side validation age/name
-            //Candidate entity = ObjectMapper.Map<CreateUpdateCandidateDto, Candidate>(input);
-
             Guid candidateId = GuidGenerator.Create();
             string candidateResumeName = string.Join("_", candidateId.ToString(), input.Resume.Name);
 
@@ -66,12 +64,6 @@ namespace HRT.Candidates
 
             try
             {
-                //SaveBlobInputDto inputDto = new SaveBlobInputDto()
-                //{
-                //    Content = input.Resume,
-                //    Id = entity.Id
-                //};
-
                 input.Resume.Name = candidateResumeName;
                 await _fileAppService.SaveBlobAsync(input.Resume);
 
@@ -84,11 +76,15 @@ namespace HRT.Candidates
             }
         }
 
+        // TODO 
+        [Authorize(HRTPermissions.Candidates.Edit)]
         public Task<CandidateDto> UpdateAsync(Guid id, CreateUpdateCandidateDto input)
         {
             throw new NotImplementedException();
         }
 
+        // TODO 
+        [Authorize(HRTPermissions.Candidates.Default)]
         public Task DeleteAsync(Guid id)
         {
             throw new NotImplementedException();

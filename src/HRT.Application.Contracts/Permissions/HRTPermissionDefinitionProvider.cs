@@ -11,15 +11,10 @@ public class HRTPermissionDefinitionProvider : PermissionDefinitionProvider
     {
         var myGroup = context.AddGroup(HRTPermissions.GroupName);
 
-        var booksPermission = myGroup.AddPermission(HRTPermissions.Books.Default, L("Permission:Books"));
-        booksPermission.AddChild(HRTPermissions.Books.Create, L("Permission:Books.Create"));
-        booksPermission.AddChild(HRTPermissions.Books.Edit, L("Permission:Books.Edit"));
-        booksPermission.AddChild(HRTPermissions.Books.Delete, L("Permission:Books.Delete"));
-
-        var CandidatesPermission = myGroup.AddPermission(HRTPermissions.Candidates.Default, L("Permission:Candidates"));
-        booksPermission.AddChild(HRTPermissions.Candidates.Create, L("Permission:Candidates.Create"));
-        booksPermission.AddChild(HRTPermissions.Candidates.Edit, L("Permission:Candidates.Edit"));
-        booksPermission.AddChild(HRTPermissions.Candidates.Delete, L("Permission:Candidates.Delete"));
+        var candidatesPermission = myGroup.AddPermission(HRTPermissions.Candidates.Default, L("Permission:Candidates"));
+        candidatesPermission.AddChild(HRTPermissions.Candidates.Create, L("Permission:Candidates.Create"));
+        candidatesPermission.AddChild(HRTPermissions.Candidates.Edit, L("Permission:Candidates.Edit"));
+        candidatesPermission.AddChild(HRTPermissions.Candidates.Delete, L("Permission:Candidates.Delete"));
 
         //Define your own permissions here. Example:
         //myGroup.AddPermission(HRTPermissions.MyPermission1, L("Permission:MyPermission1"));

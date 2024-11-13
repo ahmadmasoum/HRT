@@ -48,22 +48,24 @@ public class HRTMenuContributor : IMenuContributor
 
         context.Menu.AddItem(
              new ApplicationMenuItem(
-            "Apply",
-            l["Menu:Apply"],
-            icon: "fa fa-book",
-            url: "/Candidates/Create")
+                "Apply",
+                l["Menu:Apply"],
+                icon: "fa fa-book",
+                order: 2,
+                url: "/Candidates/Create")
              );
 
 
 
         //Administration
-        var administration = context.Menu.TryRemoveMenuItem(DefaultMenuNames.Application.Main.Administration);
+        //var administration = context.Menu.TryRemoveMenuItem(DefaultMenuNames.Application.Main.Administration);
 
-        //var administration = context.Menu.GetAdministration();
-        //administration.Order = 5;
+        var administration = context.Menu.GetAdministration();
+        administration.Order = 5;
 
-        ////Administration->Identity
-        //administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
+        //Administration->Identity
+        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
+        administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
 
         //if (MultiTenancyConsts.IsEnabled)
         //{
@@ -75,9 +77,10 @@ public class HRTMenuContributor : IMenuContributor
         //}
 
         //administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+        administration.TryRemoveMenuItem(SettingManagementMenuNames.GroupName);
 
-        ////Administration->Settings
-        //administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
+        //Administration->Settings
+        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
 
         return Task.CompletedTask;
     }

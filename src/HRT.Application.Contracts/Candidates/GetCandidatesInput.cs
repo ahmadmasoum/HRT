@@ -11,6 +11,7 @@ namespace HRT.Candidates
     public class GetCandidatesInput : PagedAndSortedResultRequestDto
     {
         // These are the parameter for admin searching
+        // TODO Implement them as they are implemented in Repository with min max values
         [CanBeNull]
         public string? FilterText { get; set; }
         [CanBeNull]
