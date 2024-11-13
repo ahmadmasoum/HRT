@@ -35,42 +35,53 @@ public class HRTMenuContributor : IMenuContributor
             )
         );
 
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                HRTMenus.Candidate,
+                l["Menu:Candidates"],
+                "/Candidates",
+                icon: "fa fa-home",
+                order: 2
+            ).RequirePermissions(HRTPermissions.Candidates.Default)
+        );
+
+
+        context.Menu.AddItem(
+             new ApplicationMenuItem(
+                "Apply",
+                l["Menu:Apply"],
+                icon: "fa fa-book",
+                order: 2,
+                url: "/Candidates/Create")
+             );
+
+
 
         //Administration
+        //var administration = context.Menu.TryRemoveMenuItem(DefaultMenuNames.Application.Main.Administration);
+
         var administration = context.Menu.GetAdministration();
         administration.Order = 5;
 
         //Administration->Identity
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
-    
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
-        }
-        else
-        {
-            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
-        }
-        
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+        administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+
+        //if (MultiTenancyConsts.IsEnabled)
+        //{
+        //    administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
+        //}
+        //else
+        //{
+        //    administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+        //}
+
+        //administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+        administration.TryRemoveMenuItem(SettingManagementMenuNames.GroupName);
 
         //Administration->Settings
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
-    
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                "BooksStore",
-                l["Menu:HRT"],
-                icon: "fa fa-book"
-            ).AddItem(
-            new ApplicationMenuItem(
-                "BooksStore.Books",
-                l["Menu:Books"],
-                url: "/Books"
-                ).RequirePermissions(HRTPermissions.Books.Default) 
-            )
-        );
-        
+
         return Task.CompletedTask;
     }
 }

@@ -39,6 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Candidates\create.js" />
+    <None Remove="Pages\Candidates\index.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="8.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.4" />

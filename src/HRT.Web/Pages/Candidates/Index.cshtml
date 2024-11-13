@@ -1,0 +1,25 @@
+﻿@page
+@using HRT.Localization
+@using HRT.Permissions
+@using HRT.Web.Pages.Candidates
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@model IndexModel
+@inject IStringLocalizer<HRTResource> L
+@inject IAuthorizationService AuthorizationService
+@section scripts
+{
+    <abp-script src="/Pages/Candidates/Index.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Candidates"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="CandidatesTable"></abp-table>
+    </abp-card-body>
+</abp-card>
